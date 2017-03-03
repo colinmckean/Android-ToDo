@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +130,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // returning the count
         return count;
+    }
+
+    public void deleteToDo(long idToDelete) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TODO, KEY_ID + " = ?",
+                new String[]{String.valueOf(idToDelete)});
     }
 }
 
