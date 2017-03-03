@@ -29,4 +29,17 @@ public class ToDo {
         this.status = status;
     }
 
+    // here be getters
+    public long getId() {
+        return this.id;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
 }
