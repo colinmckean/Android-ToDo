@@ -42,4 +42,17 @@ public class ToDo {
         return status;
     }
 
+    // get set for the setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }
