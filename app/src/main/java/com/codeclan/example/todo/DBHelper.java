@@ -40,4 +40,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_TODO);
     }
+
+    //need to override on Upgrade, this takes the old version and drops the db, then calls the on onCreate method.
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // on upgrade drop older tables
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
+
+        // create new tables
+        onCreate(db);
+    }
 }
