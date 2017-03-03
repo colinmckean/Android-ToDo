@@ -1,13 +1,14 @@
 package com.codeclan.example.todo;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by user on 03/03/2017.
  */
 
-public class DBHelper extends SQLiteOpenHelper{
+public class DBHelper extends SQLiteOpenHelper {
 
     //database version, needs changed if schema updates.
     public static final int DATABASE_VERSION = 1;
@@ -29,9 +30,14 @@ public class DBHelper extends SQLiteOpenHelper{
             + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TODO
             + " TEXT," + KEY_STATUS + ")";
 
-
     //constructor
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    //need to override onCreate takes a db and executes create table statement.
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE_TODO);
     }
 }
