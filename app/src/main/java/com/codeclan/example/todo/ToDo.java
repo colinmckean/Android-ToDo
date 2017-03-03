@@ -6,4 +6,12 @@ package com.codeclan.example.todo;
 
 public class ToDo {
 
+    private int id;
+    private int status;
+    private int listId;
+    private String title;
+    private String priorityId;
+    private String description;
+    private String note;
+
 }
