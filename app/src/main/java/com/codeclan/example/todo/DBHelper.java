@@ -64,4 +64,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return todo_id;
     }
+
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
 }
