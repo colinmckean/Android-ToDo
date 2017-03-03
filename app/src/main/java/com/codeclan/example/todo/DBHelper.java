@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         //check if rows, loop through rows adding to list
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst())
             do {
                 ToDo todo = new ToDo();
                 todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
@@ -91,10 +92,28 @@ public class DBHelper extends SQLiteOpenHelper {
                 // adding to to do list
                 todos.add(todo);
             } while (cursor.moveToNext());
-        }
         //close the cursor and return the list of to do's
         cursor.close();
         return todos;
+    }
+
+    // get a to do by id.
+    public ToDo getTodo(long todo_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // build string for SQL query.
+        String selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE "
+                + KEY_ID + " = " + todo_id;
+        //create cursor.
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // check cursor is not null and then move to first.
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        ToDo todo = new ToDo();
+        todo.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+        todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
+        cursor.close();
+        return todo;
     }
 }
 
