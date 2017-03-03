@@ -1,5 +1,6 @@
 package com.codeclan.example.todo;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
@@ -27,4 +28,10 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TODO
             + " TEXT," + KEY_STATUS + ")";
+
+
+    //constructor
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 }
