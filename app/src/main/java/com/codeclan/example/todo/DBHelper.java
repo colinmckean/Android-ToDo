@@ -115,5 +115,22 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return todo;
     }
+
+    public int getToDoCount() {
+        //create a string with SQL query
+        String countQuery = "SELECT  * FROM " + TABLE_TODO;
+        //get a db and cursor
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        //get the count from the cursor
+        int count = cursor.getCount();
+
+        //close cursor
+        cursor.close();
+
+        // returning the count
+        return count;
+    }
 }
 
