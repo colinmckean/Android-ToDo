@@ -2,8 +2,12 @@ package com.codeclan.example.todo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 03/03/2017.
@@ -70,4 +74,27 @@ public class DBHelper extends SQLiteOpenHelper {
         if (db != null && db.isOpen())
             db.close();
     }
+
+    public List<ToDo> getAllToDos() {
+        List<ToDo> todos = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_TODO;
+        //get a database and cursor.
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //check if rows, loop through rows adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ToDo todo = new ToDo();
+                todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
+                todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
+
+                // adding to to do list
+                todos.add(todo);
+            } while (cursor.moveToNext());
+        }
+        //close the cursor and return the list of to do's
+        cursor.close();
+        return todos;
+    }
 }
+
