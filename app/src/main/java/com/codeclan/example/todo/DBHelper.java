@@ -14,12 +14,13 @@ import java.util.List;
  */
 
 public class DBHelper extends SQLiteOpenHelper {
+    private static DBHelper instance = null;
 
     //database version, needs changed if schema updates.
-    public static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
 
     //database name.
-    public static final String DATABASE_NAME = "ToDoList.db";
+    private static final String DATABASE_NAME = "ToDoList.db";
 
     // name of tables.
     private static final String TABLE_TODO = "todos";
@@ -36,8 +37,16 @@ public class DBHelper extends SQLiteOpenHelper {
             + " TEXT," + KEY_STATUS + ")";
 
     //constructor
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    static DBHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DBHelper(context);
+        }
+        return instance;
+
     }
 
     //need to override onCreate takes a db and executes create table statement.
@@ -87,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 ToDo todo = new ToDo();
                 todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
                 todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
-
+                todo.setStatus(cursor.getInt((cursor.getColumnIndex(KEY_STATUS))));
                 // adding to to do list
                 todos.add(todo);
             } while (cursor.moveToNext());
@@ -111,6 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ToDo todo = new ToDo();
         todo.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
+        todo.setStatus(cursor.getInt((cursor.getColumnIndex(KEY_STATUS))));
         cursor.close();
         return todo;
     }
@@ -137,5 +147,22 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_TODO, KEY_ID + " = ?",
                 new String[]{String.valueOf(idToDelete)});
     }
+
+    //updating a todo
+
+
+    public int updateToDo(ToDo todo) {
+        //get a db
+        SQLiteDatabase db = this.getWritableDatabase();
+        // add in values.
+        ContentValues values = new ContentValues();
+        values.put(KEY_TODO, todo.getNote());
+        values.put(KEY_STATUS, todo.getStatus());
+
+        // update row
+        return db.update(TABLE_TODO, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(todo.getId())});
+    }
+
 }
 
