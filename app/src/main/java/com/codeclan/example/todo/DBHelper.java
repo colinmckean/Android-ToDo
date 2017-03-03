@@ -1,5 +1,6 @@
 package com.codeclan.example.todo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -49,5 +50,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // create new tables
         onCreate(db);
+    }
+
+    //Creating a new To Do task.
+    public long createToDo(ToDo todo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_TODO, todo.getNote());
+        values.put(KEY_STATUS, todo.getStatus());
+
+        // insert row
+        long todo_id = db.insert(TABLE_TODO, null, values);
+
+        return todo_id;
     }
 }
