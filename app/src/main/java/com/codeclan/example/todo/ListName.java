@@ -12,6 +12,10 @@ public class ListName {
 
     }
 
+    public ListName(String list_name) {
+        this.list_name = list_name;
+    }
+
     public ListName(int id, String list_name) {
         this.id = id;
         this.list_name = list_name;
