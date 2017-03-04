@@ -5,5 +5,16 @@ package com.codeclan.example.todo;
  */
 
 public class ListName {
+    private int id;
+    private String list_name;
+
+    public ListName() {
+
+    }
+
+    public ListName(int id, String list_name) {
+        this.id = id;
+        this.list_name = list_name;
+    }
 
 }
