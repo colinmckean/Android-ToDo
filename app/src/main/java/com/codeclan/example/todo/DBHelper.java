@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,6 +216,25 @@ public class DBHelper extends SQLiteOpenHelper {
         //close the cursor and return the list
         cursor.close();
         return listNames;
+    }
+
+    public ListName getListName(long listName_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES + " WHERE "
+                + KEY_ID + " =" + listName_id;
+        Log.d("List",selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        ListName td = new ListName();
+        td.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+        td.setList_name((cursor.getString(cursor.getColumnIndex(KEY_LISTNAME))));
+        cursor.close();
+        return td;
+
     }
 }
 
