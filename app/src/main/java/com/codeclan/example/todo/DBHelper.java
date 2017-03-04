@@ -219,22 +219,36 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ListName getListName(long listName_id) {
+        //get a db
         SQLiteDatabase db = this.getReadableDatabase();
-
+        //build SQL query
         String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES + " WHERE "
-                + KEY_ID + " =" + listName_id;
-        Log.d("List",selectQuery);
+                + KEY_ID + " = " + listName_id;
+        //get a cursor.
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        //if cursor is not null move to first.
         if (cursor != null)
             cursor.moveToFirst();
-
-        ListName td = new ListName();
-        td.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-        td.setList_name((cursor.getString(cursor.getColumnIndex(KEY_LISTNAME))));
+        //create a listname object and set values to values from cursor.
+        ListName listName = new ListName();
+        listName.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+        listName.setList_name((cursor.getString(cursor.getColumnIndex(KEY_LISTNAME))));
+        //close the cursor and return the list name.
         cursor.close();
-        return td;
+        return listName;
 
+    }
+
+    public int updateList(ListName listName) {
+        //get a db
+        SQLiteDatabase db = this.getWritableDatabase();
+        //put values retried from listname getters
+        ContentValues values = new ContentValues();
+        values.put(KEY_LISTNAME, listName.getList_name());
+
+        // update row with values
+        return db.update(TABLE_LISTNAMES, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(listName.getId()) });
     }
 }
 
