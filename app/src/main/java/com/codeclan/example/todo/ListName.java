@@ -17,4 +17,13 @@ public class ListName {
         this.list_name = list_name;
     }
 
+    //Unleash the getters!
+    public int getId() {
+        return id;
+    }
+
+    public String getList_name() {
+        return list_name;
+    }
+
 }
