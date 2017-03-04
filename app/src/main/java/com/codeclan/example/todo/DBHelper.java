@@ -190,5 +190,31 @@ public class DBHelper extends SQLiteOpenHelper {
         //return the id
         return tag_id;
     }
+
+    //List out all List Names
+
+    public List<ListName> getAllLists() {
+        //create a list of listnames
+        List<ListName> listNames = new ArrayList<ListName>();
+        //generate SQL query.
+        String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES;
+        //get a db and a cursor.
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //only if there is a value loop through and get values and add to array while there is next.
+        if (cursor.moveToFirst()) {
+            do {
+                ListName listName = new ListName();
+                listName.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
+                listName.setList_name(cursor.getString(cursor.getColumnIndex(KEY_LISTNAME)));
+
+                // adding to tags list
+                listNames.add(listName);
+            } while (cursor.moveToNext());
+        }
+        //close the cursor and return the list
+        cursor.close();
+        return listNames;
+    }
 }
 
