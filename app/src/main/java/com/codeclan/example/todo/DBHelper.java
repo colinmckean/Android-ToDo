@@ -24,17 +24,27 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // name of tables.
     private static final String TABLE_TODO = "todos";
+    private static final String TABLE_LISTNAMES = "list_names";
+
     // common field id.
     private static final String KEY_ID = "id";
 
     // column names
     private static final String KEY_TODO = "todo";
     private static final String KEY_STATUS = "status";
+    private static final String KEY_LISTNAME = "list_name";
 
     //create to do table.
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TODO
             + " TEXT," + KEY_STATUS + ")";
+
+    //create a listnames table
+    private static final String CREATE_TABLE_LISTNAMES = "CREATE TABLE " +
+            TABLE_LISTNAMES + "(" +
+            KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            KEY_LISTNAME + " TEXT"
+            + ")";
 
     //constructor
     private DBHelper(Context context) {
@@ -53,6 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_TODO);
+        db.execSQL(CREATE_TABLE_LISTNAMES);
     }
 
     //need to override on Upgrade, this takes the old version and drops the db, then calls the on onCreate method.
@@ -60,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LISTNAMES);
 
         // create new tables
         onCreate(db);
@@ -148,7 +160,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(idToDelete)});
     }
 
-    //updating a todo
+    //updating a to do
 
 
     public int updateToDo(ToDo todo) {
@@ -164,5 +176,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(todo.getId())});
     }
 
+    //**** list names
+
+    //create a list
+    public long createList(ListName listName) {
+        //get a db
+        SQLiteDatabase db = this.getWritableDatabase();
+        //get values and add values
+        ContentValues values = new ContentValues();
+        values.put(KEY_LISTNAME, listName.getList_name());
+        // insert row
+        long tag_id = db.insert(TABLE_LISTNAMES, null, values);
+        //return the id
+        return tag_id;
+    }
 }
 
