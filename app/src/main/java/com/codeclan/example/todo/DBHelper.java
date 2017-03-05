@@ -34,11 +34,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_TODO = "todo";
     private static final String KEY_STATUS = "status";
     private static final String KEY_LISTNAME = "list_name";
+    private static final String KEY_LISTID = "list_id";
 
     //create to do table.
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TODO
-            + " TEXT," + KEY_STATUS + ")";
+            + " TEXT," + KEY_STATUS + ", " + KEY_LISTID + ")";
 
     //create a listnames table
     private static final String CREATE_TABLE_LISTNAMES = "CREATE TABLE " +
@@ -84,6 +85,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TODO, todo.getNote());
         values.put(KEY_STATUS, todo.getStatus());
+        values.put(KEY_LISTID, todo.getListId());
 
         // insert row
         long todo_id = db.insert(TABLE_TODO, null, values);
@@ -110,6 +112,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
                 todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
                 todo.setStatus(cursor.getInt((cursor.getColumnIndex(KEY_STATUS))));
+                todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
                 // adding to to do list
                 todos.add(todo);
             } while (cursor.moveToNext());
@@ -171,10 +174,39 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TODO, todo.getNote());
         values.put(KEY_STATUS, todo.getStatus());
-
+        values.put(KEY_LISTID, todo.getListId());
         // update row
         return db.update(TABLE_TODO, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(todo.getId())});
+    }
+
+    /*
+ * getting all todos in a list
+ * */
+    public List<ToDo> getAllToDosInAList(int listId) {
+        //create a arraylist to return details
+        List<ToDo> todos = new ArrayList<>();
+        //build sql query
+        String selectQuery = "SELECT * FROM " + TABLE_TODO + " WHERE " + KEY_LISTID + " = " + listId;
+        //get DB and cursor
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ToDo todo = new ToDo();
+                todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
+                todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
+                todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
+
+                // adding to todo list
+                todos.add(todo);
+            } while (cursor.moveToNext());
+        }
+        //close cursor and return todo
+        cursor.close();
+        return todos;
     }
 
     //**** list names
@@ -246,9 +278,9 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_LISTNAME, listName.getList_name());
 
-        // update row with values
+        // updating row
         return db.update(TABLE_LISTNAMES, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(listName.getId()) });
+                new String[]{String.valueOf(listName.getId())});
     }
 }
 
