@@ -283,5 +283,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_LISTNAMES, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(listName.getId())});
     }
+
+    //delete list takes a listname
+    public void deleteList(ListName list) {
+        //get a DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        //deletes listname from db.
+        db.delete(TABLE_LISTNAMES, KEY_ID + " = ?",
+                new String[]{String.valueOf(list.getId())});
+    }
 }
 
