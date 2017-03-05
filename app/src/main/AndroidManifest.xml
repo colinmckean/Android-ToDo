@@ -19,16 +19,21 @@
         <activity
             android:name=".ListAllListsActivity"
             android:label="@string/title_activity_list_all_lists"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ListOfToDoItems"
-            android:parentActivityName=".ListAllListsActivity"/>
-        <activity android:name=".ViewSingleToDo"
-            android:parentActivityName=".ListAllListsActivity"/>
-        <activity android:name=".NewListActivity"
-            android:parentActivityName=".ListAllListsActivity"/>
-        <activity android:name=".NewToDoActivity"
-            android:parentActivityName=".ListAllListsActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListOfToDoItems"
+            android:parentActivityName=".ListAllListsActivity" />
+        <activity
+            android:name=".ViewSingleToDo"
+            android:parentActivityName=".ListAllListsActivity" />
+        <activity
+            android:name=".NewListActivity"
+            android:parentActivityName=".ListAllListsActivity" />
+        <activity
+            android:name=".NewToDoActivity"
+            android:parentActivityName=".ListAllListsActivity" />
+        <activity android:name=".EditToDoActivity"></activity>
     </application>
 
 </manifest>
