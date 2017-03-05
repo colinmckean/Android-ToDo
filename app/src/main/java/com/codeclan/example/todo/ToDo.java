@@ -8,7 +8,12 @@ public class ToDo {
 
     private int id;
     private int status;
-//    private int listId;
+
+    public void setListId(int listId) {
+        this.listId = listId;
+    }
+
+    private int listId;
 //    private String title;
 //    private String priorityId;
 //    private String description;
@@ -29,6 +34,13 @@ public class ToDo {
         this.status = status;
     }
 
+    public ToDo(int status, int listId, String note) {
+        this.id = id;
+        this.status = status;
+        this.listId = listId;
+        this.note = note;
+    }
+
     // here be getters
     public long getId() {
         return this.id;
@@ -40,6 +52,10 @@ public class ToDo {
 
     public int getStatus() {
         return status;
+    }
+
+    public int getListId() {
+        return listId;
     }
 
     // get set for the setters
