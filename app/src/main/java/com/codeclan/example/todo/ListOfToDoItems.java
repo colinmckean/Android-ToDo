@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
     ListView ListOfToDos;
     String[] names;
     Button newToDo;
-    int listID;
+    int listid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +30,9 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
         newToDo = (Button) findViewById(R.id.addNewToDo_Btn);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        listID = extras.getInt("listId");
-        Log.d("listId", String.valueOf(listID));
-        allToDosInList = db.getAllToDosInAList(listID);
+        listid = extras.getInt("listId");
+        Log.d("listId", String.valueOf(listid));
+        allToDosInList = db.getAllToDosInAList(listid);
         names = getTitles(allToDosInList);
 
                 for (ToDo todo : allToDosInList) {
@@ -69,8 +70,16 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
 
     public void goToAddNewToDoActivity(View view){
         Intent intent = new Intent(this, NewToDoActivity.class);
-        intent.putExtra("listID",listID);
+        intent.putExtra("listid", listid);
         startActivity(intent);
+    }
+    //overriding back button to stop form landing on invalid activities.
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, ListAllListsActivity.class);
+        startActivity(intent);
+        Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
     }
 
 }
