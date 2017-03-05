@@ -137,6 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
         todo.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
         todo.setStatus(cursor.getInt((cursor.getColumnIndex(KEY_STATUS))));
+        todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
         cursor.close();
         return todo;
     }
