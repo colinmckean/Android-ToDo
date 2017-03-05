@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:onClick="goToAddNewToDoActivity"
         android:text="ADD NEW TODO." />
+    <Button
+        android:id="@+id/deleteList_Btn"
+        android:text="DELETE LISt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="deleteList"/>
 
     <ListView
         android:id="@+id/listAllToDos_ListView"

@@ -33,7 +33,10 @@
         <activity
             android:name=".NewToDoActivity"
             android:parentActivityName=".ListAllListsActivity" />
-        <activity android:name=".EditToDoActivity"></activity>
+        <activity
+            android:name=".EditToDoActivity"
+            android:parentActivityName=".ListAllListsActivity">
+        </activity>
     </application>
 
 </manifest>

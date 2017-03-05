@@ -13,6 +13,7 @@ public class NewToDoActivity extends AppCompatActivity {
     DBHelper db;
     ToDo toDoTosave;
     EditText toDoNote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +22,15 @@ public class NewToDoActivity extends AppCompatActivity {
         toDoNote = (EditText) findViewById(R.id.todoNote_EditText);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        listId = extras.getInt("listID");
+        listId = extras.getInt("listid");
     }
 
     public void saveToDoToDB(View view) {
         toDoTosave = new ToDo(0, listId, toDoNote.getText().toString());
         //int status, int listId, String note
-        Intent intent = new Intent(this, ListOfToDoItems.class );
-        intent.putExtra("listId",listId);
+        Intent intent = new Intent(this, ListOfToDoItems.class);
+        intent.putExtra("listId", listId);
         db.createToDo(toDoTosave);
         startActivity(intent);
-
-
     }
 }
