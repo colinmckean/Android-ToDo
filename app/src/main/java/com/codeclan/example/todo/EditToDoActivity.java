@@ -18,11 +18,16 @@ public class EditToDoActivity extends AppCompatActivity {
     Button saveUpdatedToDoBtn;
     DBHelper db;
     ToDo todoToDisplay;
+    ListName listName;
     String note;
     Spinner spinner;
+    Spinner listsSpinner;
     long id;
     List<String> list;
+    List<String> listNames;
     ArrayAdapter<String> statusAdapter;
+    ArrayAdapter<String> listNamesAdapter;
+    List<ListName> allLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class EditToDoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_to_do);
         db = DBHelper.getInstance(getApplicationContext());
         spinner = (Spinner) findViewById(R.id.toDoStatus_Spnr);
+        listsSpinner = (Spinner) findViewById(R.id.toDoList_Spnr);
 
 
         //this needs refactoed, possibly a enum.
@@ -38,13 +44,18 @@ public class EditToDoActivity extends AppCompatActivity {
         list.add("To Do");
         list.add("In Progress");
 
-        statusAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, list);
+        listNames = new ArrayList<>();
+        fillListNames();
+
+
+        statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+        listNamesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listNames);
 
 
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(statusAdapter);
-
+        listsSpinner.setAdapter(listNamesAdapter);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -52,8 +63,16 @@ public class EditToDoActivity extends AppCompatActivity {
         Log.d("ToDo", String.valueOf(id));
 
         todoToDisplay = db.getTodo(id);
+        listName = db.getListName(todoToDisplay.getListId());
+
+
         //plan on having done has -1, to do 0, in progress 1 will look at enums.
+
         spinner.setSelection(todoToDisplay.getStatus() + 1);
+
+//
+
+        listsSpinner.setSelection(listNames.indexOf(listName.getList_name()));
         note = todoToDisplay.getNote();
         editToDoNote = (EditText) findViewById(R.id.editToDoNote_EditText);
         saveUpdatedToDoBtn = (Button) findViewById(R.id.saveUpdatedToDoToDB_Btn);
@@ -65,8 +84,20 @@ public class EditToDoActivity extends AppCompatActivity {
         todoToDisplay.setNote(editToDoNote.getText().toString());
         //using -1 to update database to maintain -1, 0, 1 values.
         todoToDisplay.setStatus(spinner.getSelectedItemPosition() - 1);
+//        ListName something = allLists.get(listsSpinner.getSelectedItemPosition());
+//        Log.d("listId -", something.getId() + "");
+        todoToDisplay.setListId(allLists.get(listsSpinner.getSelectedItemPosition()).getId());
         db.updateToDo(todoToDisplay);
         intent.putExtra("todo_id", id);
         startActivity(intent);
+    }
+
+    public void fillListNames(){
+        allLists = db.getAllLists();
+        for(ListName listName : allLists){
+            listNames.add(listName.getList_name());
+            Log.d("listId", listName.getId() + " ");
+        }
+
     }
 }

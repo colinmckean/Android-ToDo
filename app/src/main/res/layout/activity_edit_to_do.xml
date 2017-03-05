@@ -17,8 +17,12 @@
 
     <Spinner
         android:id="@+id/toDoStatus_Spnr"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+    </Spinner>
+    <Spinner
+        android:id="@+id/toDoList_Spnr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     </Spinner>
 </LinearLayout>
