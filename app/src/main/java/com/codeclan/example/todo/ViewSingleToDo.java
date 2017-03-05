@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewSingleToDo extends AppCompatActivity {
 
@@ -43,5 +44,15 @@ public class ViewSingleToDo extends AppCompatActivity {
         intent.putExtra("listId",listId);
         db.deleteToDo(id);
         startActivity(intent);
+    }
+
+    //overriding back button to stop form landing on invalid activities.
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, ListOfToDoItems.class);
+        intent.putExtra("listId",listId);
+        startActivity(intent);
+        Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
     }
 }
