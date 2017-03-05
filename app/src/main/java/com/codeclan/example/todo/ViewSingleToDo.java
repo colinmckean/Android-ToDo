@@ -55,4 +55,10 @@ public class ViewSingleToDo extends AppCompatActivity {
         startActivity(intent);
         Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
     }
+
+    public void editToDo(View view) {
+        Intent intent = new Intent(this, EditToDoActivity.class);
+        intent.putExtra("ToDoId", id);
+        startActivity(intent);
+    }
 }
