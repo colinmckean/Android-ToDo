@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -30,5 +31,13 @@ public class EditToDoActivity extends AppCompatActivity {
         editToDoNote = (EditText) findViewById(R.id.editToDoNote_EditText);
         saveUpdatedToDoBtn = (Button) findViewById(R.id.saveUpdatedToDoToDB_Btn);
         editToDoNote.setText(note);
+    }
+
+    public void saveUpdatedToDoToDB(View view) {
+        Intent intent = new Intent(this, ViewSingleToDo.class);
+        todoToDisplay.setNote(editToDoNote.getText().toString());
+        db.updateToDo(todoToDisplay);
+        intent.putExtra("todo_id", id);
+        startActivity(intent);
     }
 }

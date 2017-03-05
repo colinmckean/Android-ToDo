@@ -12,5 +12,6 @@
         android:id="@+id/saveUpdatedToDoToDB_Btn"
         android:text="SAVE UPDATED TDO TO DB"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="saveUpdatedToDoToDB"/>
 </LinearLayout>
