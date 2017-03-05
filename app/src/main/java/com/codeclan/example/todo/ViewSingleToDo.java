@@ -41,6 +41,7 @@ public class ViewSingleToDo extends AppCompatActivity {
     public void deleteToDo(View view) {
         Intent intent = new Intent(this, ListOfToDoItems.class);
         intent.putExtra("listId",listId);
+        db.deleteToDo(id);
         startActivity(intent);
     }
 }

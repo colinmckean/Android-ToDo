@@ -20,7 +20,8 @@
         android:id="@+id/deleteToDo_Btn"
         android:text="DELETE FROM DB."
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="deleteToDo"/>
     <Button
         android:id="@+id/editToDo_Btn"
         android:text="EDIT TODO"
