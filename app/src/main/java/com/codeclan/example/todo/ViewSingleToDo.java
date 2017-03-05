@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class ViewSingleToDo extends AppCompatActivity {
@@ -12,6 +13,8 @@ public class ViewSingleToDo extends AppCompatActivity {
     TextView toDoPriority;
     DBHelper db;
     ToDo todoToDisplay;
+    long id;
+    int listId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,19 @@ public class ViewSingleToDo extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        long id = extras.getLong("todo_id");
+        id = extras.getLong("todo_id");
         Log.d("Single",id + " ..");
         todoToDisplay = db.getTodo(id);
+        listId = todoToDisplay.getListId();
+        Log.d("listId",String.valueOf(listId));
         toDoPriority.setText(todoToDisplay.getNote());
 //        toDoNote.setText(todoToDisplay.getStatus());
+    }
+
+
+    public void deleteToDo(View view) {
+        Intent intent = new Intent(this, ListOfToDoItems.class);
+        intent.putExtra("listId",listId);
+        startActivity(intent);
     }
 }
