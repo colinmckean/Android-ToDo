@@ -1,28 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="To Do : "
+        android:textSize="30sp" />
+
     <EditText
         android:id="@+id/editToDoNote_EditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/saveUpdatedToDoToDB_Btn"
-        android:text="SAVE UPDATED TDO TO DB"
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="saveUpdatedToDoToDB"/>
+        android:orientation="horizontal"
+        android:padding="4dp">
 
-    <Spinner
-        android:id="@+id/toDoStatus_Spnr"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="Status :"
+            android:textSize="25sp" />
+
+        <Spinner
+            android:id="@+id/toDoStatus_Spnr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
-    <Spinner
-        android:id="@+id/toDoList_Spnr"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="List :"
+            android:textSize="25sp" />
+
+        <Spinner
+            android:id="@+id/toDoList_Spnr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/saveUpdatedToDoToDB_Btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+        android:layout_height="wrap_content"
+        android:onClick="saveUpdatedToDoToDB"
+        android:text="SAVE UPDATED TDO TO DB" />
 </LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+
+    <!--<LinearLayout android:orientation="vertical"--><!--android:padding="8dp"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--xmlns:android="http://schemas.android.com/apk/res/android" >--><!--<TextView--><!--android:text="To Do : "--><!--android:textSize="30sp"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content" />--><!--<EditText--><!--android:id="@+id/editToDoNote_EditText"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content" />--><!--<LinearLayout--><!--android:orientation="horizontal"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">--><!--<TextView--><!--android:text="Status :"--><!--android:textSize="25sp"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"/>--><!--<Spinner--><!--android:id="@+id/toDoStatus_Spnr"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2">--><!--</Spinner>-->
+
+    <!--</LinearLayout>--><!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">--><!--<TextView--><!--android:text="List :"--><!--android:textSize="25sp"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"/>--><!--<Spinner--><!--android:id="@+id/toDoList_Spnr"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2">--><!--</Spinner>--><!--</LinearLayout>-->
+
+
+    <!--<Button--><!--android:id="@+id/saveUpdatedToDoToDB_Btn"--><!--android:text="SAVE UPDATED TODO TO DB"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:onClick="saveUpdatedToDoToDB"/>--><!--</LinearLayout>-->
