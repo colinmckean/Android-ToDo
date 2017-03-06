@@ -5,21 +5,37 @@ package com.codeclan.example.todo;
  */
 
 public enum Status {
-    DONE(-1),
-    TODO(0),
-    INPROGRESS(1);
+    DONE(-1) {
+        @Override
+        public String toString() {
+            return "Done";
+        }
+    },
+    TODO(0) {
+        @Override
+        public String toString() {
+            return "To Do";
+        }
+    },
+    INPROGRESS(1) {
+        @Override
+        public String toString() {
+            return "In Progress";
+        }
+    };
 
     private int statusValue;
 
-    private Status(int value){
+    Status(int value) {
         this.statusValue = value;
     }
 
-    public int getValue(){
+    public int getValue() {
         return statusValue;
     }
-    public static Status getStatus(int statusCode){
-        switch(statusCode){
+
+    public static Status getStatus(int statusCode) {
+        switch (statusCode) {
             case -1:
                 return Status.DONE;
             case 0:
