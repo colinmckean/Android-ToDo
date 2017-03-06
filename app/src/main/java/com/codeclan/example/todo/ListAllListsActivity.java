@@ -1,16 +1,20 @@
 package com.codeclan.example.todo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
     String[] names;
     List<ListName> allLists;
     Button newListBtn;
+    String requestedListName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +74,34 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void newListButton(View view) {
-        Intent intent = new Intent(this, NewListActivity.class);
-        startActivity(intent);
-    }
 
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Enter a ListName");
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        alert.setPositiveButton("Save List", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                requestedListName = input.getText().toString();
+                ListName listTosave = new ListName(requestedListName);
+                Log.d("test", requestedListName);
+                db.createList(listTosave);
+                Intent intent = new Intent(getApplicationContext(), ListAllListsActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        alert.show();
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
+    }
 }
+
+

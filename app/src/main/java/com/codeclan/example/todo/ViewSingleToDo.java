@@ -38,7 +38,9 @@ public class ViewSingleToDo extends AppCompatActivity {
         listId = todoToDisplay.getListId();
         listName = db.getListName(listId);
         Log.d("listId",String.valueOf(listId));
+
         toDoNote.setText(todoToDisplay.getNote());
+
         //todoToDisplay.getStatus()
         Log.d("status",String.valueOf(Status.getStatus(todoToDisplay.getStatus())));
         toDoListName.setText(listName.getList_name());
