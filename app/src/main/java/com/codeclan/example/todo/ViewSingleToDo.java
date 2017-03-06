@@ -11,9 +11,11 @@ import android.widget.Toast;
 public class ViewSingleToDo extends AppCompatActivity {
 
     TextView toDoNote;
-    TextView toDoPriority;
+    TextView toDoStatus;
+    TextView toDoListName;
     DBHelper db;
     ToDo todoToDisplay;
+    ListName listName;
     long id;
     int listId;
 
@@ -25,7 +27,8 @@ public class ViewSingleToDo extends AppCompatActivity {
 
         db = DBHelper.getInstance(getApplicationContext());
         toDoNote = (TextView) findViewById(R.id.taskNote_TextView);
-        toDoPriority = (TextView) findViewById(R.id.taskPriority_TextView);
+        toDoStatus = (TextView) findViewById(R.id.taskPriority_TextView);
+        toDoListName = (TextView) findViewById(R.id.taskListName_TextView);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -33,8 +36,13 @@ public class ViewSingleToDo extends AppCompatActivity {
         Log.d("Single",id + " ..");
         todoToDisplay = db.getTodo(id);
         listId = todoToDisplay.getListId();
+        listName = db.getListName(listId);
         Log.d("listId",String.valueOf(listId));
-        toDoPriority.setText(todoToDisplay.getNote());
+        toDoNote.setText(todoToDisplay.getNote());
+        //todoToDisplay.getStatus()
+        Log.d("status",String.valueOf(Status.getStatus(todoToDisplay.getStatus())));
+        toDoListName.setText(listName.getList_name());
+        toDoStatus.setText(String.valueOf(Status.getStatus(todoToDisplay.getStatus())));
 //        toDoNote.setText(todoToDisplay.getStatus());
     }
 

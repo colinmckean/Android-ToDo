@@ -22,12 +22,12 @@ public class EditToDoActivity extends AppCompatActivity {
     String note;
     Spinner spinner;
     Spinner listsSpinner;
-    long id;
     List<String> list;
     List<String> listNames;
     ArrayAdapter<String> statusAdapter;
     ArrayAdapter<String> listNamesAdapter;
     List<ListName> allLists;
+    long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,12 @@ public class EditToDoActivity extends AppCompatActivity {
 
         //this needs refactoed, possibly a enum.
         list = new ArrayList<>();
-        list.add("Done");
-        list.add("To Do");
-        list.add("In Progress");
+        for (Status s : Status.values()){
+            list.add(s.toString());
+        }
+//        list.add("Done");
+//        list.add("To Do");
+//        list.add("In Progress");
 
         listNames = new ArrayList<>();
         fillListNames();
