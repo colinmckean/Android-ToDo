@@ -1,6 +1,8 @@
 package com.codeclan.example.todo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +25,8 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
     Button newToDo;
     Button deleteListBtn;
     int listId;
+    ToDo toDoTosave;
+    String toDoNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +84,43 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
     }
 
     public void goToAddNewToDoActivity(View view) {
-        Intent intent = new Intent(this, NewToDoActivity.class);
-        intent.putExtra("listid", listId);
-        startActivity(intent);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Enter a Task");
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        alert.setPositiveButton("Save ToDo", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                toDoNote = input.getText().toString();
+                toDoTosave = new ToDo(0, listId, toDoNote);
+                db.createToDo(toDoTosave);
+                Intent intent = new Intent(getApplicationContext(), ListOfToDoItems.class);
+                intent.putExtra("listId", listId);
+                startActivity(intent);
+
+            }
+        });
+
+        alert.show();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        Intent intent = new Intent(this, NewToDoActivity.class);
+//        intent.putExtra("listid", listId);
+//        startActivity(intent);
     }
 
     //overriding back button to stop form landing on invalid activities.
