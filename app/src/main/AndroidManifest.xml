@@ -23,7 +23,7 @@
            />
         <activity
             android:name=".ListOfToDoItems"
-            android:parentActivityName=".ListAllListsActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ViewSingleToDo"
             android:parentActivityName=".ListAllListsActivity" />

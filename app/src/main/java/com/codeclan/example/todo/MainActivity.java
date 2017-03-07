@@ -97,5 +97,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ListOfToDos.setAdapter(listAdapter);
         ListOfToDos.setOnItemClickListener(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateList(0);
+        // Normal case behavior follows
+    }
 }
 
