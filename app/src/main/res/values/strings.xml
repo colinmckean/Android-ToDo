@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ToDo</string>
     <string name="title_activity_list_all_lists">ListAllListsActivity</string>
+    <string name="todoitems">ToDo Items:</string>
+    <string name="inprogress">In progress ToDo Items:</string>
+    <string name="completedToDo">Completed ToDo Items:</string>
+    <string name="to_do">To Do</string>
+    <string name="in_progress">In Progress</string>
+    <string name="done">Done</string>
 </resources>
