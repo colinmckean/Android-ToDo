@@ -4,33 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.codeclan.example.todo.ViewSingleToDo"
-    android:orientation="vertical">
+    android:padding="8dp"
+    android:background="@drawable/wood">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="ToDo details:"
+    android:textSize="30dp"
+    android:textColor="#000"
+    android:textAlignment="center"
+    android:background="#AAFFFFFF"
+    />
 
-    <TextView
-        android:id="@+id/taskNote_TextView"
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/taskPriority_TextView"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#99FFFFFF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="List: "
+            android:textSize="18dp"
+            android:padding="4dp"/>
+
+        <TextView
+            android:id="@+id/taskListName_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:padding="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/taskListName_TextView"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#99FFFFFF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Status: "
+            android:textSize="18dp"
+            android:padding="4dp"/>
+
+        <TextView
+            android:id="@+id/taskPriority_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:padding="4dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#99FFFFFF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Task: "
+            android:textSize="18sp"
+            android:padding="4dp"/>
+
+        <TextView
+            android:id="@+id/taskNote_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:padding="4dp"/>
+    </LinearLayout>
 
 
     <Button
         android:id="@+id/deleteToDo_Btn"
-        android:text="DELETE FROM DB."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="deleteToDo"/>
+        android:onClick="deleteToDo"
+        android:text="DELETE FROM DB."/>
+
     <Button
         android:id="@+id/editToDo_Btn"
-        android:text="EDIT TODO"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="editToDo"/>
+        android:onClick="editToDo"
+        android:text="EDIT TODO"/>
 </LinearLayout>

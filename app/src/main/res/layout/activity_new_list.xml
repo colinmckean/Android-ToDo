@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codeclan.example.todo.NewListActivity">
+    tools:context="com.codeclan.example.todo.NewListActivity"
+    android:background="@drawable/wood">
     <TextView
         android:text="ENTER A LIST NAME."
         android:layout_width="match_parent"

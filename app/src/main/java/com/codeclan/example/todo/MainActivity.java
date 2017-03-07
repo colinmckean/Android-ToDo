@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onResume() {
         super.onResume();
+        heading.setText(R.string.to_do);
         populateList(0);
         // Normal case behavior follows
     }

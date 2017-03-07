@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/wood"
+    android:layout_marginTop="8dp"
+    >
 
     <Button
         android:onClick="newListButton"
         android:id="@+id/addNewList_Btn"
         android:text="ADD NEW LIST."
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <ListView
+        android:layout_marginTop="18dp"
         android:id="@+id/ListAllListNames_ListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="#99FFFFFF"
+        android:layout_margin="8dp">
     </ListView>
 
 </LinearLayout>
