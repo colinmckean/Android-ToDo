@@ -5,13 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     DBHelper db;
     Button viewAllToDos;
+    List<ToDo> inprogress;
+    ListView ListOfToDos;
+    String[] listItems;
+
 
 
     @Override
@@ -19,9 +26,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewAllToDos = (Button) findViewById(R.id.viewAllToDos_Btn);
-
-
         db = DBHelper.getInstance(getApplicationContext());
+
+
+        inprogress = db.getAllToDosByStatus(0);
+        listItems = getTitles(inprogress);
+
+        ListOfToDos = (ListView) findViewById(R.id.listByStatus_ListView);
+//
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
+        ListOfToDos.setAdapter(listAdapter);
+        ListOfToDos.setOnItemClickListener(this);
 //        ListName list1 = new ListName("Make more lists");
 //        ToDo todo1 = new ToDo("Create a Sample; Task", 1);
 //ToDo todo2 = new ToDo(-1, 2, "more to do");
@@ -68,7 +83,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public String[] getTitles(List<ToDo> allToDos) {
+        String[] titles = new String[allToDos.size()];
+        for (int i = 0; i < allToDos.size(); i++) {
+            Log.d("get Titles", String.valueOf(i));
+            titles[i] = allToDos.get(i).getNote();
+            Log.d("get Titles", allToDos.get(i).getNote());
+        }
+        return titles;
+    }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.d("something", "has been selected");
+
+
+    }
 }
 

@@ -210,6 +210,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return todos;
     }
 
+
+    public List<ToDo> getAllToDosByStatus(int status) {
+        //create a arraylist to return details
+        List<ToDo> todos = new ArrayList<>();
+        //build sql query
+        String selectQuery = "SELECT * FROM " + TABLE_TODO + " WHERE " + KEY_STATUS + " = " + status;
+        //get DB and cursor
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ToDo todo = new ToDo();
+                todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
+                todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
+                todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
+
+                // adding to todo list
+                todos.add(todo);
+            } while (cursor.moveToNext());
+        }
+        //close cursor and return todo
+        cursor.close();
+        return todos;
+    }
+
     //**** list names
 
     //create a list
@@ -292,5 +319,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_LISTNAMES, KEY_ID + " = ?",
                 new String[]{String.valueOf(list.getId())});
     }
+
+
+
+
+
 }
 
