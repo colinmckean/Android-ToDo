@@ -21,7 +21,6 @@ public class ListName {
         this.list_name = list_name;
     }
 
-    //Unleash the getters!
     public int getId() {
         return id;
     }
@@ -30,7 +29,6 @@ public class ListName {
         return list_name;
     }
 
-    //get set for the setters!
     public void setId(int id) {
         this.id = id;
     }

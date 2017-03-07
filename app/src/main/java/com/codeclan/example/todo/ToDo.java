@@ -8,18 +8,9 @@ public class ToDo {
 
     private int id;
     private int status;
-
-    public void setListId(int listId) {
-        this.listId = listId;
-    }
-
     private int listId;
-//    private String title;
-//    private String priorityId;
-//    private String description;
     private String note;
 
-    //Add Constructors.
     public ToDo() {
     }
 
@@ -35,13 +26,11 @@ public class ToDo {
     }
 
     public ToDo(int status, int listId, String note) {
-        this.id = id;
         this.status = status;
         this.listId = listId;
         this.note = note;
     }
 
-    // here be getters
     public long getId() {
         return this.id;
     }
@@ -58,7 +47,6 @@ public class ToDo {
         return listId;
     }
 
-    // get set for the setters
     public void setId(int id) {
         this.id = id;
     }
@@ -69,6 +57,10 @@ public class ToDo {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
     }
 
 }

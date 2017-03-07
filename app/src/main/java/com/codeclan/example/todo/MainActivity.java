@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return titles;
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onResume();
         heading.setText(R.string.to_do);
         populateList(0);
-        // Normal case behavior follows
     }
 }
 
