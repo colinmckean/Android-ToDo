@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void viewLists(View view) {
-        Intent intent = new Intent(this, ListAllListsActivity.class);
+        Intent intent = new Intent(this, Lists.class);
         startActivity(intent);
     }
 

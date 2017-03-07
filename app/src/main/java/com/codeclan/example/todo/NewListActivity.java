@@ -17,7 +17,7 @@ public class NewListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_list);
         db = DBHelper.getInstance(getApplicationContext());
-        saveListToDB = (Button) findViewById(R.id.addNewList_Btn);
+//        saveListToDB = (Button) findViewById(R.id.addNewList_Btn);
         listName = (EditText) findViewById(R.id.listname_EditText);
     }
 

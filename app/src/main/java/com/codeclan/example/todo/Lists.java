@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,39 +19,28 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class ListAllListsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class Lists extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
     ListView listOfLists;
     DBHelper db;
     String[] names;
     List<ListName> allLists;
-    Button newListBtn;
     String requestedListName;
+    ArrayAdapter<String> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_all_lists);
-//        newListBtn = (Button) findViewById(R.id.addNewList_Btn);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_lists);
         db = DBHelper.getInstance(getApplicationContext());
-//        setSupportActionBar(toolbar);
-        allLists = db.getAllLists();
-        names = getTitles(allLists);
-        listOfLists = (ListView) findViewById(R.id.ListAllListNames_ListView);
-
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        listOfLists.setAdapter(listAdapter);
-        listOfLists.setOnItemClickListener(this);
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newListButton();
+            }
+        });
+        populateLists();
     }
 
     public String[] getTitles(List<ListName> allToDos) {
@@ -63,17 +53,7 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
         return titles;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        int id = allLists.get(i).getId();
-        Log.d("List", "Whats been clicked.  " + id);
-
-        Intent intent = new Intent(this, ListOfToDoItems.class);
-        intent.putExtra("listId", id);
-        startActivity(intent);
-    }
-
-    public void newListButton(View view) {
+    public void newListButton() {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage("Enter a ListName");
@@ -81,20 +61,25 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
         alert.setView(input);
         alert.setPositiveButton("Save List", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
                 requestedListName = input.getText().toString();
                 ListName listTosave = new ListName(requestedListName);
                 Log.d("test", requestedListName);
                 db.createList(listTosave);
-                Intent intent = new Intent(getApplicationContext(), ListAllListsActivity.class);
-                startActivity(intent);
-
+                populateLists();
             }
         });
-
         alert.show();
-
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        int id = allLists.get(i).getId();
+        Log.d("List", "Whats been clicked.  " + id);
+        Intent intent = new Intent(this, ListOfToDoItems.class);
+        intent.putExtra("listId", id);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -102,6 +87,14 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
         startActivity(intent);
         Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
     }
+
+    public void populateLists() {
+        allLists = db.getAllLists();
+        names = getTitles(allLists);
+        listOfLists = (ListView) findViewById(R.id.ListAllListNames_ListView);
+        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+        listOfLists.setAdapter(listAdapter);
+        listOfLists.setOnItemClickListener(this);
+    }
+
 }
-
-

@@ -4,15 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/wood"
-    android:layout_marginTop="8dp"
+    android:paddingBottom="40dp"
     >
-
-    <Button
-        android:onClick="newListButton"
-        android:id="@+id/addNewList_Btn"
-        android:text="ADD NEW LIST."
+    <TextView
+        android:text="All Lists"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:textColor="#000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="#AAFFFFFF"
+        android:layout_margin="8dp"
+        />
+
+    <!--<Button-->
+        <!--android:onClick="newListButton"-->
+        <!--android:id="@+id/addNewList_Btn"-->
+        <!--android:text="ADD NEW LIST."-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
     <ListView
         android:layout_marginTop="18dp"
