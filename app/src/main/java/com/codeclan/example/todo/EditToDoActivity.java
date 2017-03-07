@@ -59,7 +59,6 @@ public class EditToDoActivity extends AppCompatActivity {
         spinner.setSelection(todoToDisplay.getStatus() + 1);
         listsSpinner.setSelection(listNames.indexOf(listName.getList_name()));
         note = todoToDisplay.getNote();
-
         editToDoNote = (EditText) findViewById(R.id.editToDoNote_EditText);
         saveUpdatedToDoBtn = (Button) findViewById(R.id.saveUpdatedToDoToDB_Btn);
         editToDoNote.setText(note);

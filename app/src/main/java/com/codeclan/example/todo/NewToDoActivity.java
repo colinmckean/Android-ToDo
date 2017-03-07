@@ -27,7 +27,7 @@ public class NewToDoActivity extends AppCompatActivity {
 
     public void saveToDoToDB(View view) {
         toDoTosave = new ToDo(0, listId, toDoNote.getText().toString());
-        Intent intent = new Intent(this, ListOfToDoItems.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("listId", listId);
         db.createToDo(toDoTosave);
         startActivity(intent);

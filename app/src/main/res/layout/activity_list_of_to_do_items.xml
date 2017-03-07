@@ -9,6 +9,7 @@
     android:background="@drawable/wood">
 
     <TextView
+        android:id="@+id/listHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Items on List"
@@ -25,13 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"/>
-
-    <Button
-        android:id="@+id/addNewToDo_Btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goToAddNewToDoActivity"
-        android:text="ADD NEW TODO." />
     <Button
         android:id="@+id/deleteList_Btn"
         android:text="DELETE LISt"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/wood">
     <TextView
@@ -15,6 +15,12 @@
         android:textAlignment="center"
         android:background="#AAFFFFFF"
         android:layout_margin="8dp"/>
+    <Button
+        android:id="@+id/viewAllToDos_Btn"
+        android:text="View All Lists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="viewLists"/>
 
     <ListView
 
@@ -25,11 +31,5 @@
         android:layout_marginTop="18dp"
         android:layout_margin="8dp">
     </ListView>
-    <Button
-        android:id="@+id/viewAllToDos_Btn"
-        android:text="View All Lists"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="viewLists"/>
 
 </LinearLayout>

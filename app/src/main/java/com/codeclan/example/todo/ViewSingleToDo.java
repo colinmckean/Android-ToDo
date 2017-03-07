@@ -39,7 +39,7 @@ public class ViewSingleToDo extends AppCompatActivity {
     }
 
     public void deleteToDo(View view) {
-        Intent intent = new Intent(this, ListOfToDoItems.class);
+        Intent intent = new Intent(this, ListToDoItems.class);
         intent.putExtra("listId", listId);
         db.deleteToDo(id);
         startActivity(intent);
@@ -48,7 +48,7 @@ public class ViewSingleToDo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, ListOfToDoItems.class);
+        Intent intent = new Intent(this, ListToDoItems.class);
         intent.putExtra("listId", listId);
         startActivity(intent);
         Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();

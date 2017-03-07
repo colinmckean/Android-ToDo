@@ -68,7 +68,7 @@ public class ListAllListsActivity extends AppCompatActivity implements AdapterVi
         int id = allLists.get(i).getId();
         Log.d("List", "Whats been clicked.  " + id);
 
-        Intent intent = new Intent(this, ListOfToDoItems.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("listId", id);
         startActivity(intent);
     }

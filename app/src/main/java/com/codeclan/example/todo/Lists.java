@@ -46,9 +46,7 @@ public class Lists extends AppCompatActivity implements AdapterView.OnItemClickL
     public String[] getTitles(List<ListName> allToDos) {
         String[] titles = new String[allToDos.size()];
         for (int i = 0; i < allToDos.size(); i++) {
-            Log.d("get Titles", String.valueOf(i));
             titles[i] = allToDos.get(i).getList_name();
-            Log.d("get Titles", allToDos.get(i).getList_name());
         }
         return titles;
     }
@@ -63,9 +61,10 @@ public class Lists extends AppCompatActivity implements AdapterView.OnItemClickL
             public void onClick(DialogInterface dialog, int whichButton) {
                 requestedListName = input.getText().toString();
                 ListName listTosave = new ListName(requestedListName);
-                Log.d("test", requestedListName);
                 db.createList(listTosave);
                 populateLists();
+                Snackbar.make(getCurrentFocus(), requestedListName + " has been added!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         alert.show();
@@ -75,7 +74,7 @@ public class Lists extends AppCompatActivity implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         int id = allLists.get(i).getId();
         Log.d("List", "Whats been clicked.  " + id);
-        Intent intent = new Intent(this, ListOfToDoItems.class);
+        Intent intent = new Intent(this, ListToDoItems.class);
         intent.putExtra("listId", id);
         startActivity(intent);
     }

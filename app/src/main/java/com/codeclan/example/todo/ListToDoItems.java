@@ -2,21 +2,24 @@ package com.codeclan.example.todo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class ListOfToDoItems extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ListToDoItems extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private DBHelper db;
     private List<ToDo> allToDosInList;
@@ -27,17 +30,34 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
     private int listId;
     private ToDo toDoTosave;
     private String toDoNote;
+    private String listName;
+    private TextView heading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_of_to_do_items);
+        setContentView(R.layout.activity_list_to_do_items);
+
+
         db = DBHelper.getInstance(getApplicationContext());
+        heading = (TextView) findViewById(R.id.listHeader);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         listId = extras.getInt("listId");
+        heading.setText(db.getListName(listId).getList_name().toString());
         populateLists();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAddNewToDoActivity(view);
+
+            }
+        });
     }
+
+
     public String[] getTitles(List<ToDo> allToDos) {
         String[] titles = new String[allToDos.size()];
         for (int i = 0; i < allToDos.size(); i++) {
@@ -64,6 +84,8 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
                 toDoTosave = new ToDo(0, listId, toDoNote);
                 db.createToDo(toDoTosave);
                 populateLists();
+                Snackbar.make(getCurrentFocus(), toDoNote + " has been added!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -73,7 +95,7 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, Lists.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(this, "BACK BUTTON PRESSED!", Toast.LENGTH_SHORT).show();
     }
@@ -98,5 +120,5 @@ public class ListOfToDoItems extends AppCompatActivity implements AdapterView.On
         ListOfToDos.setAdapter(listAdapter);
         ListOfToDos.setOnItemClickListener(this);
     }
-}
 
+}

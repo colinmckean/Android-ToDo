@@ -8,4 +8,5 @@
     <string name="in_progress">In Progress</string>
     <string name="done">Done</string>
     <string name="title_activity_lists">Lists</string>
+    <string name="title_activity_list_to_do_items">ListToDoItems</string>
 </resources>
