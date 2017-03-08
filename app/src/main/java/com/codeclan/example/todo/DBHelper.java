@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,39 +15,24 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static DBHelper instance = null;
-
-    //database version, needs changed if schema updates.
     private static final int DATABASE_VERSION = 1;
-
-    //database name.
     private static final String DATABASE_NAME = "ToDoList.db";
-
-    // name of tables.
     private static final String TABLE_TODO = "todos";
     private static final String TABLE_LISTNAMES = "list_names";
-
-    // common field id.
     private static final String KEY_ID = "id";
-
-    // column names
     private static final String KEY_TODO = "todo";
     private static final String KEY_STATUS = "status";
     private static final String KEY_LISTNAME = "list_name";
     private static final String KEY_LISTID = "list_id";
-
-    //create to do table.
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TODO
             + " TEXT," + KEY_STATUS + ", " + KEY_LISTID + ")";
-
-    //create a listnames table
     private static final String CREATE_TABLE_LISTNAMES = "CREATE TABLE " +
             TABLE_LISTNAMES + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             KEY_LISTNAME + " TEXT"
             + ")";
 
-    //constructor
     private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -61,35 +45,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    //need to override onCreate takes a db and executes create table statement.
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_TODO);
         db.execSQL(CREATE_TABLE_LISTNAMES);
     }
 
-    //need to override on Upgrade, this takes the old version and drops the db, then calls the on onCreate method.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LISTNAMES);
-
-        // create new tables
         onCreate(db);
     }
 
-    //Creating a new To Do task.
     public long createToDo(ToDo todo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TODO, todo.getNote());
         values.put(KEY_STATUS, todo.getStatus());
         values.put(KEY_LISTID, todo.getListId());
-
-        // insert row
         long todo_id = db.insert(TABLE_TODO, null, values);
-
         return todo_id;
     }
 
@@ -101,11 +76,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<ToDo> getAllToDos() {
         List<ToDo> todos = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_TODO;
-        //get a database and cursor.
+        String selectQuery = "SELECT * FROM " + TABLE_TODO;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        //check if rows, loop through rows adding to list
         if (cursor.moveToFirst())
             do {
                 ToDo todo = new ToDo();
@@ -113,23 +86,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
                 todo.setStatus(cursor.getInt((cursor.getColumnIndex(KEY_STATUS))));
                 todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
-                // adding to to do list
                 todos.add(todo);
             } while (cursor.moveToNext());
-        //close the cursor and return the list of to do's
         cursor.close();
         return todos;
     }
 
-    // get a to do by id.
     public ToDo getTodo(long todo_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        // build string for SQL query.
-        String selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE "
-                + KEY_ID + " = " + todo_id;
-        //create cursor.
+        String selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE " + KEY_ID + " = " + todo_id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // check cursor is not null and then move to first.
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -143,19 +109,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public int getToDoCount() {
-        //create a string with SQL query
         String countQuery = "SELECT  * FROM " + TABLE_TODO;
-        //get a db and cursor
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-
-        //get the count from the cursor
         int count = cursor.getCount();
-
-        //close cursor
         cursor.close();
-
-        // returning the count
         return count;
     }
 
@@ -165,163 +123,102 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(idToDelete)});
     }
 
-    //updating a to do
-
-
     public int updateToDo(ToDo todo) {
-        //get a db
         SQLiteDatabase db = this.getWritableDatabase();
-        // add in values.
         ContentValues values = new ContentValues();
         values.put(KEY_TODO, todo.getNote());
         values.put(KEY_STATUS, todo.getStatus());
         values.put(KEY_LISTID, todo.getListId());
-        // update row
         return db.update(TABLE_TODO, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(todo.getId())});
     }
 
-    /*
- * getting all todos in a list
- * */
     public List<ToDo> getAllToDosInAList(int listId) {
-        //create a arraylist to return details
         List<ToDo> todos = new ArrayList<>();
-        //build sql query
         String selectQuery = "SELECT * FROM " + TABLE_TODO + " WHERE " + KEY_LISTID + " = " + listId;
-        //get DB and cursor
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 ToDo todo = new ToDo();
                 todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
                 todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
                 todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
-
-                // adding to todo list
                 todos.add(todo);
             } while (cursor.moveToNext());
         }
-        //close cursor and return todo
         cursor.close();
         return todos;
     }
 
 
     public List<ToDo> getAllToDosByStatus(int status) {
-        //create a arraylist to return details
         List<ToDo> todos = new ArrayList<>();
-        //build sql query
         String selectQuery = "SELECT * FROM " + TABLE_TODO + " WHERE " + KEY_STATUS + " = " + status;
-        //get DB and cursor
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 ToDo todo = new ToDo();
                 todo.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
                 todo.setNote((cursor.getString(cursor.getColumnIndex(KEY_TODO))));
                 todo.setListId(cursor.getInt((cursor.getColumnIndex(KEY_LISTID))));
-
-                // adding to todo list
                 todos.add(todo);
             } while (cursor.moveToNext());
         }
-        //close cursor and return todo
         cursor.close();
         return todos;
     }
 
-    //**** list names
-
-    //create a list
     public long createList(ListName listName) {
-        //get a db
         SQLiteDatabase db = this.getWritableDatabase();
-        //get values and add values
         ContentValues values = new ContentValues();
         values.put(KEY_LISTNAME, listName.getList_name());
-        // insert row
         long tag_id = db.insert(TABLE_LISTNAMES, null, values);
-        //return the id
         return tag_id;
     }
 
-    //List out all List Names
-
     public List<ListName> getAllLists() {
-        //create a list of listnames
         List<ListName> listNames = new ArrayList<ListName>();
-        //generate SQL query.
         String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES;
-        //get a db and a cursor.
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        //only if there is a value loop through and get values and add to array while there is next.
         if (cursor.moveToFirst()) {
             do {
                 ListName listName = new ListName();
                 listName.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
                 listName.setList_name(cursor.getString(cursor.getColumnIndex(KEY_LISTNAME)));
-
-                // adding to tags list
                 listNames.add(listName);
             } while (cursor.moveToNext());
         }
-        //close the cursor and return the list
         cursor.close();
         return listNames;
     }
 
     public ListName getListName(long listName_id) {
-        //get a db
         SQLiteDatabase db = this.getReadableDatabase();
-        //build SQL query
-        String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES + " WHERE "
-                + KEY_ID + " = " + listName_id;
-        //get a cursor.
+        String selectQuery = "SELECT  * FROM " + TABLE_LISTNAMES + " WHERE " + KEY_ID + " = " + listName_id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        //if cursor is not null move to first.
         if (cursor != null)
             cursor.moveToFirst();
-        //create a listname object and set values to values from cursor.
         ListName listName = new ListName();
         listName.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         listName.setList_name((cursor.getString(cursor.getColumnIndex(KEY_LISTNAME))));
-        //close the cursor and return the list name.
         cursor.close();
         return listName;
-
     }
 
     public int updateList(ListName listName) {
-        //get a db
         SQLiteDatabase db = this.getWritableDatabase();
-        //put values retried from listname getters
         ContentValues values = new ContentValues();
         values.put(KEY_LISTNAME, listName.getList_name());
-
-        // updating row
-        return db.update(TABLE_LISTNAMES, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(listName.getId())});
+        return db.update(TABLE_LISTNAMES, values, KEY_ID + " = ?", new String[]{String.valueOf(listName.getId())});
     }
 
-    //delete list takes a listname
     public void deleteList(ListName list) {
-        //get a DB
         SQLiteDatabase db = this.getWritableDatabase();
-        //deletes listname from db.
-        db.delete(TABLE_LISTNAMES, KEY_ID + " = ?",
-                new String[]{String.valueOf(list.getId())});
+        db.delete(TABLE_LISTNAMES, KEY_ID + " = ?", new String[]{String.valueOf(list.getId())});
     }
-
-
-
 
 
 }

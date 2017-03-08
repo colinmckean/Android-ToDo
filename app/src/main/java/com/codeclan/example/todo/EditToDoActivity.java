@@ -1,9 +1,8 @@
 package com.codeclan.example.todo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,12 +43,14 @@ public class EditToDoActivity extends AppCompatActivity {
 
         listNames = new ArrayList<>();
         fillListNames();
+
         statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         listNamesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listNames);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(statusAdapter);
         listsSpinner.setAdapter(listNamesAdapter);
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         id = extras.getLong("ToDoId");
@@ -78,7 +79,6 @@ public class EditToDoActivity extends AppCompatActivity {
         allLists = db.getAllLists();
         for (ListName listName : allLists) {
             listNames.add(listName.getList_name());
-            Log.d("listId", listName.getId() + " ");
         }
 
     }
