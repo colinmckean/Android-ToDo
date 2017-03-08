@@ -23,9 +23,6 @@
             android:name=".ViewSingleToDo"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".NewListActivity"
-            android:parentActivityName=".Lists" />
-        <activity
             android:name=".EditToDoActivity"
             android:parentActivityName=".Lists" />
         <activity
