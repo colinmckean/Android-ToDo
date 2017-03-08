@@ -2,36 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/wood"
-    android:paddingBottom="40dp"
-    >
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
+
     <TextView
-        android:text="All Lists"
-        android:textSize="32sp"
-        android:textAlignment="center"
-        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#AAFFFFFF"
         android:layout_margin="8dp"
-        />
-
-    <!--<Button-->
-        <!--android:onClick="newListButton"-->
-        <!--android:id="@+id/addNewList_Btn"-->
-        <!--android:text="ADD NEW LIST."-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
+        android:background="#AAFFFFFF"
+        android:text="All Lists"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="32sp" />
 
     <ListView
-        android:layout_marginTop="18dp"
         android:id="@+id/ListAllListNames_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#99FFFFFF"
-        android:layout_margin="8dp">
-    </ListView>
+        android:layout_margin="8dp"
+        android:layout_marginTop="18dp"
+        android:background="#99FFFFFF"></ListView>
 
 </LinearLayout>
 

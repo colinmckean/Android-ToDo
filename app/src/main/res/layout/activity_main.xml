@@ -2,33 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wood"
     android:orientation="vertical"
-    android:background="@drawable/wood">
+    android:paddingBottom="40dp">
+
     <TextView
         android:id="@+id/mainActivityHeading_TextView"
-        android:text="ToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="#000"
-        android:textAlignment="center"
+        android:layout_margin="8dp"
         android:background="#AAFFFFFF"
-        android:layout_margin="8dp"/>
+        android:text="ToDo"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="30sp" />
+
     <Button
         android:id="@+id/viewAllToDos_Btn"
-        android:text="View All Lists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="viewLists"/>
+        android:onClick="viewLists"
+        android:text="View All Lists" />
 
     <ListView
-
         android:id="@+id/listByStatus_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#99FFFFFF"
+        android:layout_margin="8dp"
         android:layout_marginTop="18dp"
-        android:layout_margin="8dp">
-    </ListView>
+        android:background="#99FFFFFF"></ListView>
 
 </LinearLayout>

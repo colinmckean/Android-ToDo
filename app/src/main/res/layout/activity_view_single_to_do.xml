@@ -3,66 +3,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wood"
     android:orientation="vertical"
-    tools:context="com.codeclan.example.todo.ViewSingleToDo"
     android:padding="8dp"
-    android:background="@drawable/wood">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="ToDo details:"
-    android:textSize="30dp"
-    android:textColor="#000"
-    android:textAlignment="center"
-    android:background="#AAFFFFFF"
-    />
+    tools:context="com.codeclan.example.todo.ViewSingleToDo">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#AAFFFFFF"
+        android:text="ToDo details:"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="30dp" />
 
 
     <LinearLayout
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#99FFFFFF">
+        android:layout_marginTop="16dp"
+        android:background="#99FFFFFF"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="4dp"
             android:text="List: "
-            android:textSize="18dp"
-            android:padding="4dp"/>
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/taskListName_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18dp"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#99FFFFFF">
+        android:background="#99FFFFFF"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="4dp"
             android:text="Status: "
-            android:textSize="18dp"
-            android:padding="4dp"/>
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/taskPriority_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18dp"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:textSize="18dp" />
 
 
     </LinearLayout>
@@ -70,24 +70,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#99FFFFFF">
+        android:background="#99FFFFFF"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="4dp"
             android:text="Task: "
-            android:textSize="18sp"
-            android:padding="4dp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/taskNote_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18dp"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:textSize="18dp" />
     </LinearLayout>
 
 
@@ -96,12 +96,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="deleteToDo"
-        android:text="DELETE FROM DB."/>
+        android:text="DELETE FROM DB." />
 
     <Button
         android:id="@+id/editToDo_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="editToDo"
-        android:text="EDIT TODO"/>
+        android:text="EDIT TODO" />
 </LinearLayout>
