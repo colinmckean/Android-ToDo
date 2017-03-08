@@ -18,7 +18,6 @@
         </activity>
         <activity
             android:name=".ListAllListsActivity"
-            android:label="@string/title_activity_list_all_lists"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ViewSingleToDo"
@@ -27,18 +26,13 @@
             android:name=".NewListActivity"
             android:parentActivityName=".Lists" />
         <activity
-            android:name=".NewToDoActivity"
-            android:parentActivityName=".Lists" />
-        <activity
             android:name=".EditToDoActivity"
             android:parentActivityName=".Lists" />
         <activity
             android:name=".Lists"
-            android:label="@string/title_activity_lists"
             android:parentActivityName=".Lists" />
         <activity
             android:name=".ListToDoItems"
-            android:label="@string/title_activity_list_to_do_items"
     android:parentActivityName=".MainActivity"/>
     </application>
 
