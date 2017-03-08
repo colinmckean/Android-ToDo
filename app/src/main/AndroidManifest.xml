@@ -17,9 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListAllListsActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".ViewSingleToDo"
             android:parentActivityName=".MainActivity" />
         <activity

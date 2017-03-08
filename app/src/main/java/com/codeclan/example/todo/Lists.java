@@ -71,7 +71,6 @@ public class Lists extends AppCompatActivity implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         int id = allLists.get(i).getId();
-        Log.d("List", "Whats been clicked.  " + id);
         Intent intent = new Intent(this, ListToDoItems.class);
         intent.putExtra("listId", id);
         startActivity(intent);

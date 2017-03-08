@@ -50,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public String[] getTitles(List<ToDo> allToDos) {
         String[] titles = new String[allToDos.size()];
         for (int i = 0; i < allToDos.size(); i++) {
-            Log.d("get Titles", String.valueOf(i));
             titles[i] = allToDos.get(i).getNote();
-            Log.d("get Titles", allToDos.get(i).getNote());
         }
         return titles;
     }
