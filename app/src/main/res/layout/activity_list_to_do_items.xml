@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.codeclan.example.todo.ListToDoItems">
 
-    <include layout="@layout/activity_list_of_to_do_items" />
+    <include layout="@layout/content_list_to_do_items" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

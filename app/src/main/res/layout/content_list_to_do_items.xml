@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@drawable/wood"
+    android:orientation="vertical"
     tools:context="com.codeclan.example.todo.ListToDoItems"
-    tools:showIn="@layout/activity_list_to_do_items">
+    android:paddingBottom="40dp">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/listHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="#AAFFFFFF"
+        android:text="Items on List"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="32dp" />
+
+    <ListView
+        android:id="@+id/listAllToDos_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="18dp"
+        android:background="#AAFFFFFF" />
+
+    <Button
+        android:id="@+id/deleteList_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="deleteList"
+        android:text="DELETE LISt" />
+</LinearLayout>
